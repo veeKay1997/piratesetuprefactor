@@ -1,7 +1,6 @@
 package nl.hva.miw.pirate_bank_setup.service;
 
 import nl.hva.miw.pirate_bank_setup.domain.Customer;
-import nl.hva.miw.pirate_bank_setup.repository.RootRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
