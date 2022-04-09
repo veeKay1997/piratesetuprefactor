@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreateBankService {
-
     private BcryptHashService bcrypt;
     private static final int MIN_ASSET_NUMBER =1000;
     private static final int MAX_ASSET_NUMBER =5000;
@@ -19,11 +18,12 @@ public class CreateBankService {
 
     @Autowired
     public CreateBankService(BcryptHashService bcrypt, CreateWalletService createWalletService,
-                                   CreateAccountService createAccountService) {
+                                   CreateAccountService createAccountService,
+                             CreateUserAndCustomerService createUserAndCustomerService) {
         this.bcrypt = bcrypt;
         this.createWalletService = createWalletService;
         this.createAccountService = createAccountService;
-
+        this.createUserAndCustomerService = createUserAndCustomerService;
     }
 
     public void createBank() {

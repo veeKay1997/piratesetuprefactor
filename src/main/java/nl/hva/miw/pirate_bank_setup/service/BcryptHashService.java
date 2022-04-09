@@ -18,9 +18,4 @@ public class BcryptHashService {
         return  passwordEncoder.encode(string+pepperService.getPepper());
     }
 
-    public boolean compareHash (String password,String hashstring) {
-        return passwordEncoder.matches(password+pepperService.getPepper(),hashstring);
-    }
-
-
 }
