@@ -3,7 +3,7 @@ package nl.hva.miw.pirate_bank_setup.service;
 import nl.hva.miw.pirate_bank_setup.domain.Asset;
 import nl.hva.miw.pirate_bank_setup.domain.Customer;
 import nl.hva.miw.pirate_bank_setup.domain.Wallet;
-import nl.hva.miw.pirate_bank_setup.repository.AssetDAO;
+import nl.hva.miw.pirate_bank_setup.repository.RootRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +13,20 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class GenerateWallet {
+public class CreateWalletService {
 
-    AssetDAO assetDAO;
+    RootRepository repository;
 
     @Autowired
-    public GenerateWallet(AssetDAO assetDAO) {
-        this.assetDAO = assetDAO;
+    public CreateWalletService(RootRepository repository) {
+        this.repository = repository;
     }
 
-    public Wallet createWalletForCustomer(Customer customer, int minAmount, int maxAmount) {
-        List<Asset> cryptoCurrencies = assetDAO.getAll();
+    public void createWalletForCustomer(Customer customer, int minAmount, int maxAmount) {
+        List<Asset> cryptoCurrencies = repository.getCryptoCurrencyList();
         Wallet customerWallet = createCustomerWallet(cryptoCurrencies, minAmount, maxAmount);
         customerWallet.setCustomer(customer);
-        return customerWallet;
+        repository.createCustomerWallet(customerWallet);
     }
 
     private Wallet createCustomerWallet (List<Asset> crypto, int minAmount, int maxAmount) {

@@ -12,33 +12,33 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 @Service
-public class GenerateRandomOrder {
+public class GenerateRandomOrderService {
     RootRepository repository;
     private BigDecimal startAmountBuy = BigDecimal.valueOf(1000);
     private BigDecimal startAmountSell = BigDecimal.valueOf(300);
 
 
     @Autowired
-    public GenerateRandomOrder(RootRepository repository) {
+    public GenerateRandomOrderService(RootRepository repository) {
         this.repository = repository;
     }
 
-    public Order generateRandomOrderByCustomer(Customer customer) {
+    public void generateRandomOrderByCustomer(Customer customer) {
         Asset randomAsset = repository.getCryptoCurrencyList().get(NumberGenerator.randomInt(0, 19));
         boolean buy = false;
         int buyOrSell = NumberGenerator.randomInt(0, 1);
         if (buyOrSell == 1) buy = true;
         if (!buy) {
-            startAmountSell = startAmountSell.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
-            return new Order(buy, customer, randomAsset, startAmountSell,
+            repository.insertOrder(new Order(buy, customer, randomAsset, startAmountSell,
                     getCurrentRate(randomAsset.getName()).multiply(BigDecimal.valueOf
-                            (NumberGenerator.randomInRange(1.02, 1.30))).round(new MathContext(4)));
+                            (NumberGenerator.randomInRange(1.02, 1.30))).round(new MathContext(4))));
+            startAmountSell = startAmountSell.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
         }
         else {
-            startAmountBuy = startAmountBuy.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
-            return new Order(buy, customer, randomAsset, startAmountBuy,
+            repository.insertOrder(new Order(buy, customer, randomAsset, startAmountBuy,
                     getCurrentRate(randomAsset.getName()).multiply(BigDecimal.valueOf
-                            (NumberGenerator.randomInRange(0.98, 0.80))).round(new MathContext(4)));
+                            (NumberGenerator.randomInRange(0.98, 0.80))).round(new MathContext(4))));
+            startAmountBuy = startAmountBuy.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
         }
     }
 
