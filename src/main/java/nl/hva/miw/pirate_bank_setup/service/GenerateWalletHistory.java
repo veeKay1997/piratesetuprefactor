@@ -2,7 +2,6 @@ package nl.hva.miw.pirate_bank_setup.service;
 
 import nl.hva.miw.pirate_bank_setup.domain.Customer;
 import nl.hva.miw.pirate_bank_setup.domain.WalletHistory;
-import nl.hva.miw.pirate_bank_setup.repository.RootRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +12,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class GenerateWalletHistoryService {
-    RootRepository repository;
+public class GenerateWalletHistory {
 
     @Autowired
-    public GenerateWalletHistoryService(RootRepository repository) {
-        this.repository = repository;
+    public GenerateWalletHistory() {
     }
 
-    public void generateAndInsertWalletHistory(Customer customer) {
-        repository.insertWalletHistory(generateWalletHistory(customer));
-    }
-
-
-
-    private WalletHistory generateWalletHistory(Customer customer) {
+    public WalletHistory generateWalletHistory(Customer customer) {
         Map<Timestamp, BigDecimal> map = new TreeMap<>();
         for (int i = 0; i < 365; i++) {
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now().minusDays(366).plusDays(i));

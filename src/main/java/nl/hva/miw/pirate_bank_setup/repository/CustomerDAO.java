@@ -2,9 +2,6 @@ package nl.hva.miw.pirate_bank_setup.repository;
 
 
 import nl.hva.miw.pirate_bank_setup.domain.*;
-import nl.hva.miw.pirate_bank_setup.domain.Address;
-import nl.hva.miw.pirate_bank_setup.domain.IdentifyingInformation;
-import nl.hva.miw.pirate_bank_setup.domain.PersonalDetails;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
