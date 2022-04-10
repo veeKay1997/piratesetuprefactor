@@ -1,7 +1,6 @@
-package nl.hva.miw.pirate_bank_setup.repository;
+package nl.hva.miw.pirate_bank_setup.repository.wallethistory;
 
 
-import nl.hva.miw.pirate_bank_setup.domain.WalletHistory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -1,16 +1,12 @@
-package nl.hva.miw.pirate_bank_setup.repository;
+package nl.hva.miw.pirate_bank_setup.repository.account;
 
-import nl.hva.miw.pirate_bank_setup.domain.Account;
-import nl.hva.miw.pirate_bank_setup.domain.Customer;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.EmptyResultDataAccessException;
+import nl.hva.miw.pirate_bank_setup.repository.user.Customer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 @Repository
 public class AccountDAO  {

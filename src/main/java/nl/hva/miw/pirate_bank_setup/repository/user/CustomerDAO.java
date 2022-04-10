@@ -1,8 +1,6 @@
-package nl.hva.miw.pirate_bank_setup.repository;
+package nl.hva.miw.pirate_bank_setup.repository.user;
 
 
-import nl.hva.miw.pirate_bank_setup.domain.*;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

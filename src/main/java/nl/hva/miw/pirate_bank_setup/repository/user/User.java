@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.domain;
+package nl.hva.miw.pirate_bank_setup.repository.user;
 
 
 import java.util.Objects;

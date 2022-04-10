@@ -1,6 +1,8 @@
-package nl.hva.miw.pirate_bank_setup.domain;
+package nl.hva.miw.pirate_bank_setup.repository.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import nl.hva.miw.pirate_bank_setup.repository.account.Account;
+import nl.hva.miw.pirate_bank_setup.repository.wallet.Wallet;
 
 import java.util.Objects;
 

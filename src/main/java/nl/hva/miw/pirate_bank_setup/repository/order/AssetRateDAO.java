@@ -1,8 +1,7 @@
-package nl.hva.miw.pirate_bank_setup.repository;
+package nl.hva.miw.pirate_bank_setup.repository.order;
 
 
-import nl.hva.miw.pirate_bank_setup.domain.Asset;
-import nl.hva.miw.pirate_bank_setup.domain.AssetRate;
+import nl.hva.miw.pirate_bank_setup.repository.wallet.Asset;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
