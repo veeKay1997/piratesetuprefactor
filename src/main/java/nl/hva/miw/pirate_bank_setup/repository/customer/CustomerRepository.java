@@ -60,9 +60,7 @@ public class CustomerRepository {
 
     private User generateUser(PersonalDetails personalDetails) {
         String email = personalDetails.getFirstName().toLowerCase()+ "."+ personalDetails.getLastName().toLowerCase()+
-                RandomNumberGenerator.randomInt(0,9) + RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+
-                RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9) +
-                RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ "@" + "piratebank.com";
+               RandomCustomerDataGenerator.generateRandomEmailAppend()+ "@" + "piratebank.com";
         return new User(email, bcrypt.hash("123456789"));
     }
 

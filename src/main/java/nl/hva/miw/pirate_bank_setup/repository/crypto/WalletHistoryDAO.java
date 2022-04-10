@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.repository.wallethistory;
+package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 
 import org.springframework.dao.DataAccessException;

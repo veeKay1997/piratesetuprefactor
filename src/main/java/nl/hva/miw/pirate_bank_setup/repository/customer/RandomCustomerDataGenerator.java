@@ -2,7 +2,6 @@ package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 import com.github.javafaker.Faker;
 import com.github.rkumsher.date.RandomDateUtils;
-import nl.hva.miw.pirate_bank_setup.repository.RootRepository;
 
 import java.time.LocalDate;
 import java.util.Locale;
@@ -24,4 +23,14 @@ public class RandomCustomerDataGenerator {
         }
         return Integer.parseInt(stringBuilder.toString());
     }
+
+    public static int generateRandomEmailAppend() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 9; i++) {
+            stringBuilder.append(faker.number().numberBetween(0,9));
+        }
+        return Integer.parseInt(stringBuilder.toString());
+    }
+
+
 }
