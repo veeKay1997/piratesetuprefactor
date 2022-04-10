@@ -37,8 +37,8 @@ public class CreateService {
                         MAX_ASSET_AMOUNT_CUSTOMER_WALLET);
                 repository.createCustomerAccount(customer, MINIMUM_BALANCE, MAX_BALANCE);
                 repository.createWalletHistory(customer, WALLET_VALUE_LOWER_BOUND, WALLET_VALUE_UPPER_BOUND);
-                repository.createRandomOrder(customer, MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_ABOVE_MARKET,
-                        MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_ABOVE_MARKET);
+                repository.createRandomOrder(customer, MIN_PERCENTAGE_ABOVE_MARKET, MAX_PERCENTAGE_ABOVE_MARKET,
+                        MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_BELOW_MARKET);
                 System.out.println("total customer generation cycles completed " + (i + 1));
             }
         } catch (Exception exception) {
