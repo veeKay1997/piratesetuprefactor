@@ -25,7 +25,8 @@ public class User {
         this.userName = userName;
         this.password = password;
     }
-    // all getters and setters generated, we will remove obsolete ones before definition of done
+
+
     public int getUserId() {
         return userId;
     }

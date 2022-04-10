@@ -13,6 +13,12 @@ import java.math.MathContext;
 
 @Service
 public class InsertRandomOrderService {
+
+    public static final double MIN_PERCENTAGE_ABOVE_MARKET = 1.02;
+    public static final double MAX_PERCENTAGE_ABOVE_MARKET = 1.30;
+    public static final double MIN_PERCENTAGE_BELOW_MARKET = 0.98;
+    public static final double MAX_PERCENTAGE_BELOW_MARKET = 0.80;
+
     RootRepository repository;
     private BigDecimal startAmountBuy = BigDecimal.valueOf(1000);
     private BigDecimal startAmountSell = BigDecimal.valueOf(300);
@@ -31,13 +37,13 @@ public class InsertRandomOrderService {
         if (!buy) {
             repository.insertOrder(new Order(buy, customer, randomAsset, startAmountSell,
                     getCurrentRate(randomAsset.getName()).multiply(BigDecimal.valueOf
-                            (NumberGenerator.randomDoubleInRange(1.02, 1.30))).round(new MathContext(4))));
+                            (NumberGenerator.randomDoubleInRange(MIN_PERCENTAGE_ABOVE_MARKET, MAX_PERCENTAGE_ABOVE_MARKET))).round(new MathContext(4))));
             startAmountSell = startAmountSell.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
         }
         else {
             repository.insertOrder(new Order(buy, customer, randomAsset, startAmountBuy,
                     getCurrentRate(randomAsset.getName()).multiply(BigDecimal.valueOf
-                            (NumberGenerator.randomDoubleInRange(0.98, 0.80))).round(new MathContext(4))));
+                            (NumberGenerator.randomDoubleInRange(MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_BELOW_MARKET))).round(new MathContext(4))));
             startAmountBuy = startAmountBuy.add(BigDecimal.valueOf(NumberGenerator.randomInt(10, 20)));
         }
     }

@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 
 @Service
 public class InsertAccountService {
+    public static final int MINIMUM_BALANCE = 150000;
+    public static final int MAX_BALANCE = 800000;
     RootRepository repository;
 
     @Autowired
@@ -18,7 +20,7 @@ public class InsertAccountService {
     }
 
     public void createCustomerAccount(Customer customer) {
-        Account account = new Account(customer, BigDecimal.valueOf(NumberGenerator.randomInt(150000,800000)));
+        Account account = new Account(customer, BigDecimal.valueOf(NumberGenerator.randomInt(MINIMUM_BALANCE, MAX_BALANCE)));
         repository.createCustomerAccount(account);
     }
 

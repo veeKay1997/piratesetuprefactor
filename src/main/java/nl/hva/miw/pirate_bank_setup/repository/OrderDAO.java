@@ -16,7 +16,6 @@ import java.sql.Statement;
 
 @Repository
 public class OrderDAO {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -26,15 +25,8 @@ public class OrderDAO {
 
     public void save(Order order) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        try {
-            jdbcTemplate.update(connection -> insertOrderStatement(order,connection),keyHolder);
-            order.setOrderId(keyHolder.getKey().intValue());
-        } catch (DataAccessException exception){
-            System.out.println(exception.getMessage());
-            log.debug(exception.getMessage());
-        }
+        jdbcTemplate.update(connection -> insertOrderStatement(order,connection),keyHolder);
     }
-
 
     private PreparedStatement insertOrderStatement(Order order, Connection connection) throws SQLException {
         PreparedStatement ps = connection.prepareStatement(

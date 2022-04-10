@@ -22,7 +22,7 @@ import java.util.TreeMap;
 @Repository
 public class WalletHistoryDAO {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public WalletHistoryDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -31,26 +31,7 @@ public class WalletHistoryDAO {
     @Transactional
     public void create(WalletHistory walletHistory) {
         String sql = "INSERT INTO `wallethistory` VALUES (?,?,?)";
-        List<Timestamp> timestamps = new ArrayList<>();
-        List<BigDecimal> bigDecimals = new ArrayList<>();
-        for (Map.Entry entry: walletHistory.getWalletValueHistory().entrySet()) {
-           Timestamp timestamp = (Timestamp) entry.getKey();
-           BigDecimal bigDecimal = (BigDecimal) entry.getValue();
-           timestamps.add(timestamp);
-           bigDecimals.add(bigDecimal);
-        }
-        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps, int i) throws SQLException {
-                ps.setInt(1, walletHistory.getCustomer().getUserId());
-                ps.setTimestamp(2, timestamps.get(i));
-                ps.setBigDecimal(3, bigDecimals.get(i));
-            }
-            @Override
-            public int getBatchSize() {
-                return walletHistory.getWalletValueHistory().size();
-            }
-        });
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatement(walletHistory));
     }
 
 
@@ -59,8 +40,8 @@ public class WalletHistoryDAO {
         return jdbcTemplate.query(sql, new WalletHistoryResultSetExtractor(), id);
     }
 
-    private class WalletHistoryResultSetExtractor implements ResultSetExtractor<WalletHistory> {
 
+    private static class WalletHistoryResultSetExtractor implements ResultSetExtractor<WalletHistory> {
         @Override
         public WalletHistory extractData(ResultSet rs) throws SQLException, DataAccessException {
             WalletHistory walletHistory = new WalletHistory();
@@ -76,4 +57,31 @@ public class WalletHistoryDAO {
         }
     }
 
+    private static class BatchPreparedStatement implements BatchPreparedStatementSetter {
+        List<Timestamp> timestamps = new ArrayList<>();
+        List<BigDecimal> bigDecimals = new ArrayList<>();
+        WalletHistory walletHistory;
+
+        public BatchPreparedStatement(WalletHistory walletHistory) {
+             this.walletHistory = walletHistory;
+             historyMapToLists();
+        }
+
+        public void historyMapToLists() {
+            for (Map.Entry<Timestamp, BigDecimal> entry : walletHistory.getWalletValueHistory().entrySet()) {
+                timestamps.add(entry.getKey());
+                bigDecimals.add(entry.getValue());
+            }
+        }
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setInt(1, walletHistory.getCustomer().getUserId());
+                ps.setTimestamp(2, timestamps.get(i));
+                ps.setBigDecimal(3, bigDecimals.get(i));
+            }
+            @Override
+            public int getBatchSize() {
+                return walletHistory.getWalletValueHistory().size();
+            }
+    }
 }

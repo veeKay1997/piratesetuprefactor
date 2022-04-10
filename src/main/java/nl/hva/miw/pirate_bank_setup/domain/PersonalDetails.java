@@ -46,8 +46,7 @@ public class PersonalDetails extends Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PersonalDetails)) return false;
-        PersonalDetails that = (PersonalDetails) o;
+        if (!(o instanceof PersonalDetails that)) return false;
         return firstName.equals(that.firstName) && inFix.equals(that.inFix) && lastName.equals(that.lastName);
     }
 

@@ -15,16 +15,14 @@ import java.time.LocalDate;
 @Repository
 public class CustomerDAO  {
 
-    private JdbcTemplate jdbcTemplate;
-    private UserDAO userDAO;
+    private final JdbcTemplate jdbcTemplate;
+    private final UserDAO userDAO;
 
     public CustomerDAO(JdbcTemplate jbdcTemplate, UserDAO userDAO) {
         super();
         this.jdbcTemplate = jbdcTemplate;
         this.userDAO = userDAO;
     }
-
-    //ToDo use different method to create a customer that is not dependent on a different DAO, see dictaat domainmapping
 
     public void create(Customer customer) {
     String sql = "INSERT INTO customer VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -39,17 +37,11 @@ public class CustomerDAO  {
 
     public Customer get(Integer id) {
         String sql ="SELECT * FROM customer WHERE user_id = ?";
-            Customer customer;
-            try {
-                customer = jdbcTemplate.queryForObject(sql, new CustomerRowMapper(), id);
-            } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
-                customer = null;
-            }
-            return customer;
+             return jdbcTemplate.queryForObject(sql, new CustomerRowMapper(), id);
         }
 
 
-public class CustomerRowMapper implements RowMapper<Customer> {
+private static class CustomerRowMapper implements RowMapper<Customer> {
     @Override
     public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
         Address address = new Address (rs.getString("street"), rs.getString("house_number"),

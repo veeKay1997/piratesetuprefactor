@@ -7,9 +7,11 @@ import java.util.Random;
 
 public class NumberGenerator {
 
+    public static final int OFFSET_YEARS = 30;
+
     public static LocalDate randomBirthday(){
         LocalDate today = LocalDate.now();
-        return RandomDateUtils.randomLocalDateBefore(today.minusYears(30));
+        return RandomDateUtils.randomLocalDateBefore(today.minusYears(OFFSET_YEARS));
     }
 
     public static int randomInt(int min, int max) {

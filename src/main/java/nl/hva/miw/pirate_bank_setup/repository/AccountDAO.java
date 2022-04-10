@@ -14,21 +14,11 @@ import java.util.List;
 
 @Repository
 public class AccountDAO  {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public AccountDAO(JdbcTemplate jdbcTemplate) {
         super();
         this.jdbcTemplate = jdbcTemplate;
-    }
-
-
-    public List<Account> getAll() {
-        String sql = "SELECT * from account;";
-        try {
-            return jdbcTemplate.query(sql, new AccountRowMapper());
-        } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
-            return null;
-        }
     }
 
     public void create(Account account) {
@@ -36,15 +26,9 @@ public class AccountDAO  {
         jdbcTemplate.update(sql, account.getCustomer().getUserId(), account.getBalance());
     }
 
-
     public Account get(Integer id) {
-        Account account;
-        try {
-            String sql = "SELECT * FROM account WHERE user_id = ?;";
-            account = jdbcTemplate.queryForObject(sql, new AccountRowMapper(), id);
-        } catch (DataAccessException dataAccessException){
-            return null;
-        } return account;
+        String sql = "SELECT * FROM account WHERE user_id = ?";
+        return jdbcTemplate.queryForObject(sql, new AccountRowMapper(), id);
     }
 
     private class AccountRowMapper implements RowMapper<Account> {

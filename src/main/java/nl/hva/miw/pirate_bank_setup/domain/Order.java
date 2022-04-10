@@ -14,8 +14,8 @@ public class Order implements Comparable<Order> {
     private BigDecimal amount;
     private BigDecimal limitPrice;
     private Timestamp timeOrderPlaced;
-    // price 0 is market order anything else is trigger transaction
 
+    // price 0 is market order anything else is trigger transaction
     public Order(boolean buy, Customer user, Asset asset, BigDecimal amount, BigDecimal limitPrice) {
         this.buy = buy;
         this.user = user;

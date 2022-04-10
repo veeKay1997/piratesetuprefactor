@@ -11,14 +11,12 @@ public class Account {
     private Customer customer;
 
     private BigDecimal balance;
-    private final BigDecimal STARTING_BALANCE = BigDecimal.valueOf(5000);
 
     public Account(Customer customer, BigDecimal balance) {
         this.customer = customer;
         this.balance = balance;
     }
 
-    public Account() {}
 
     public Customer getCustomer() {
         return customer;
@@ -32,11 +30,6 @@ public class Account {
         return balance;
     }
 
-    public BigDecimal getSTARTING_BALANCE() {return STARTING_BALANCE; }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
 
     @Override
     public boolean equals(Object o) {

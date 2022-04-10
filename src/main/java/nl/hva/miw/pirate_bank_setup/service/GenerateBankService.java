@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GenerateBankService {
+
     private BcryptHashService bcrypt;
     private static final int MIN_ASSET_NUMBER =1000;
     private static final int MAX_ASSET_NUMBER =5000;
+    public static final int BANK_ID = 1000;
     private InsertUserAndCustomerService insertUserAndCustomerService;
-
     private final InsertWalletService createWalletService;
     private final InsertAccountService insertAccountService;
 
@@ -26,12 +27,18 @@ public class GenerateBankService {
         this.insertUserAndCustomerService = insertUserAndCustomerService;
     }
 
-    public void createBank() {
-        Customer customer = insertUserAndCustomerService.createBankUserAndCustomer(1000, "piratebank@piratebank.nl",
+    public boolean createBank() {
+        try {
+        Customer customer = insertUserAndCustomerService.createBankUserAndCustomer(BANK_ID, "piratebank@piratebank.nl",
                 "welcomepirates01");
         createWalletService.createCustomerWallet(customer, MIN_ASSET_NUMBER, MAX_ASSET_NUMBER);
         insertAccountService.createCustomerAccount(customer);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+            return false;
+        }
         System.out.println("The Pirate Bank was created");
+        return true;
     }
 
 }

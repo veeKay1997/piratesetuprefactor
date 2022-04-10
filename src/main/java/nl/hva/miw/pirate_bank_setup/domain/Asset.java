@@ -7,7 +7,6 @@ public class Asset {
     private String name;
     private String abbreviation;
 
-
     public Asset(String asset, String abbreviation) {
         this.name = asset;
         this.abbreviation = abbreviation;
@@ -17,9 +16,7 @@ public class Asset {
         this.name = name;
     }
 
-    public Asset(){
-
-    }
+    public Asset(){}
 
     public String getName() {
         return name;

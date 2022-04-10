@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Repository
 public class WalletDAO  {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public WalletDAO(JdbcTemplate jdbcTemplate) {
         super();
@@ -31,28 +31,7 @@ public class WalletDAO  {
     @Transactional
     public void create(Wallet wallet) {
         String sql = "INSERT INTO wallet VALUES (?, ?, ?);";
-        List<Asset> assets = new ArrayList<>();
-        List<BigDecimal> bigDecimals = new ArrayList<>();
-
-        for (Map.Entry entry: wallet.getAssetsInWallet().entrySet()) {
-            Asset asset = (Asset) entry.getKey();
-            BigDecimal bigDecimal = (BigDecimal) entry.getValue();
-            assets.add(asset);
-            bigDecimals.add(bigDecimal);
-        }
-
-        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-            @Override
-            public void setValues(PreparedStatement ps, int i) throws SQLException {
-                ps.setInt(1, wallet.getCustomer().getUserId());
-                ps.setString(2, assets.get(i).getName());
-                ps.setBigDecimal(3, bigDecimals.get(i));
-            }
-            @Override
-            public int getBatchSize() {
-                return wallet.getAssetsInWallet().size();
-            }
-        });
+        jdbcTemplate.batchUpdate(sql, new WalletBatchPreparedStatement(wallet));
     }
 
     public Wallet get(Integer id) {
@@ -61,7 +40,7 @@ public class WalletDAO  {
     }
 
 
-    private class WalletResultSetExtractor implements ResultSetExtractor<Wallet> {
+    private static class WalletResultSetExtractor implements ResultSetExtractor<Wallet> {
         public Wallet extractData(ResultSet rs) throws SQLException, DataAccessException {
             Wallet wallet = new Wallet();
             Map<Asset, BigDecimal> map = new HashMap<>();
@@ -76,4 +55,32 @@ public class WalletDAO  {
         }
     }
 
+    private static class WalletBatchPreparedStatement implements BatchPreparedStatementSetter {
+        List<Asset> assets = new ArrayList<>();
+        List<BigDecimal> bigDecimals = new ArrayList<>();
+        Wallet wallet;
+
+        public WalletBatchPreparedStatement(Wallet wallet ) {
+            this.wallet = wallet;
+            walletToLists();
+        }
+
+        private void walletToLists() {
+            for (Map.Entry<Asset, BigDecimal> entry : wallet.getAssetsInWallet().entrySet()) {
+                assets.add(entry.getKey());
+                bigDecimals.add(entry.getValue());
+            }
+        }
+
+        @Override
+        public void setValues(PreparedStatement ps, int i) throws SQLException {
+            ps.setInt(1, wallet.getCustomer().getUserId());
+            ps.setString(2, assets.get(i).getName());
+            ps.setBigDecimal(3, bigDecimals.get(i));
+        }
+        @Override
+        public int getBatchSize() {
+            return wallet.getAssetsInWallet().size();
+        }
+    }
 }

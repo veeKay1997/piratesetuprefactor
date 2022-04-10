@@ -13,7 +13,7 @@ import java.sql.SQLException;
 @Repository
 public class UserDAO  {
 
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public UserDAO(JdbcTemplate jbdcTemplate) {
         super();
@@ -31,30 +31,16 @@ public class UserDAO  {
     }
 
     public User get(Integer id) {
-        User user;
         String sql ="SELECT * FROM user WHERE user_id = ?";
-        try {
-            user = jdbcTemplate.queryForObject(sql, new UserRowMapper(), id);
-        } catch (DataAccessException dataAccessException) {
-            user = null;
-        }
-        return user;
+        return jdbcTemplate.queryForObject(sql, new UserRowMapper(), id);
     }
-
 
     public User getByUsername(String userName) {
-        User user;
         String sql = "SELECT * FROM user WHERE username = ?";
-        try {
-            user = jdbcTemplate.queryForObject(sql, new UserRowMapper(), userName);
-        } catch (DataAccessException dataAccessException) {
-            user = null;
-        }
-        return user;
+        return jdbcTemplate.queryForObject(sql, new UserRowMapper(), userName);
     }
 
-
-    public class UserRowMapper implements RowMapper<User> {
+    private static class UserRowMapper implements RowMapper<User> {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
