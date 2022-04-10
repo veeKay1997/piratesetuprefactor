@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
 @Service
-public class CreateAccountService {
+public class InsertAccountService {
     RootRepository repository;
 
     @Autowired
-    public CreateAccountService(RootRepository repository) {
+    public InsertAccountService(RootRepository repository) {
         this.repository = repository;
     }
 

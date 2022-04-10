@@ -55,12 +55,6 @@ public class WalletDAO  {
         });
     }
 
-    public void addSingleAssetToWallet(int userId, String assetname, BigDecimal amount) {
-        String sql = "INSERT INTO wallet VALUES (?, ?, ?);";
-        jdbcTemplate.update(sql, userId, assetname, amount );
-    }
-
-
     public Wallet get(Integer id) {
         String sql = "SELECT * FROM wallet WHERE user_id = ?";
         return jdbcTemplate.query(sql, new WalletResultSetExtractor(), id);

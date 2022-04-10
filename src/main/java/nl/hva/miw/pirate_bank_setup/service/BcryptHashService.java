@@ -7,15 +7,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class BcryptHashService {
     private final PasswordEncoder passwordEncoder;
-    private final PepperService pepperService;
+    private final String pepper = "WalkThePlankMaggot";
 
-    public BcryptHashService(PasswordEncoder passwordEncoder, PepperService pepperService) {
+    public BcryptHashService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
-        this.pepperService = pepperService;
     }
 
-    public String hash (String string) {
-        return  passwordEncoder.encode(string+pepperService.getPepper());
+    public String hash (String password) {
+        return  passwordEncoder.encode(password + pepper);
     }
-
 }

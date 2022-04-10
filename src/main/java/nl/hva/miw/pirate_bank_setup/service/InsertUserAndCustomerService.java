@@ -14,30 +14,32 @@ import org.springframework.stereotype.Service;
 import java.util.Locale;
 
 @Service
-public class CreateUserAndCustomerService {
+public class InsertUserAndCustomerService {
     private final RootRepository repository;
     private final BcryptHashService bcrypt;
     Faker faker = new Faker(new Locale("nl"));
 
     @Autowired
-    public CreateUserAndCustomerService(RootRepository repository, BcryptHashService bcryptHashService) {
+    public InsertUserAndCustomerService(RootRepository repository, BcryptHashService bcryptHashService) {
         this.repository = repository;
         this.bcrypt = bcryptHashService;
     }
 
     public Customer createBankUserAndCustomer(int bankId, String username, String password) {
-        User user = new User(username, bcrypt.hash(password));
-        user.setUserId(bankId);
-        Customer customer = generateCustomer(user, generatePersonalDetails());
-        repository.doUserAndCustomerInsert(user, customer);
+        User bank = new User(username, bcrypt.hash(password));
+        bank.setUserId(bankId);
+        repository.doUserInsertWithId(bank);
+        Customer customer = generateCustomer(bank, generatePersonalDetails());
+        repository.doCustomerInsert(customer);
         return customer;
     }
 
-    public Customer createUserAndCustomer() {
+    public Customer createRegularUserAndCustomer() {
         PersonalDetails personalDetails = generatePersonalDetails();
         User user = generateUser(personalDetails);
+        repository.doUserInsert(user);
         Customer customer = generateCustomer(user, personalDetails);
-        repository.doUserAndCustomerInsert(user, customer);
+        repository.doCustomerInsert(customer);
         return customer;
     }
 
@@ -74,10 +76,5 @@ public class CreateUserAndCustomerService {
         }
         return Integer.parseInt(stringBuilder.toString());
     }
-
-
-
-
-
 
 }

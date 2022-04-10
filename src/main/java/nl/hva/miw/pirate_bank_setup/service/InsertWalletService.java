@@ -13,16 +13,16 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CreateWalletService {
+public class InsertWalletService {
 
     RootRepository repository;
 
     @Autowired
-    public CreateWalletService(RootRepository repository) {
+    public InsertWalletService(RootRepository repository) {
         this.repository = repository;
     }
 
-    public void createWalletForCustomer(Customer customer, int minAmount, int maxAmount) {
+    public void createCustomerWallet(Customer customer, int minAmount, int maxAmount) {
         List<Asset> cryptoCurrencies = repository.getCryptoCurrencyList();
         Wallet customerWallet = createCustomerWallet(cryptoCurrencies, minAmount, maxAmount);
         customerWallet.setCustomer(customer);

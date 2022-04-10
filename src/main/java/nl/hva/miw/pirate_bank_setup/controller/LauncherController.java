@@ -1,31 +1,31 @@
 package nl.hva.miw.pirate_bank_setup.controller;
 
-import nl.hva.miw.pirate_bank_setup.service.CreateBankService;
-import nl.hva.miw.pirate_bank_setup.service.PopulateDatabaseService;
+import nl.hva.miw.pirate_bank_setup.service.GenerateBankService;
+import nl.hva.miw.pirate_bank_setup.service.GenerateOtherCustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class LauncherController {
 
-    CreateBankService createBankService;
-    PopulateDatabaseService createUsersAndCustomersService;
+    GenerateBankService generateBankService;
+    GenerateOtherCustomersService generateOtherCustomersService;
 
 
     @Autowired
-    public LauncherController(CreateBankService createBankService, PopulateDatabaseService createUsersAndCustomersService) {
-        this.createBankService = createBankService;
-        this.createUsersAndCustomersService = createUsersAndCustomersService;
+    public LauncherController(GenerateBankService generateBankService, GenerateOtherCustomersService createUsersAndCustomersService) {
+        this.generateBankService = generateBankService;
+        this.generateOtherCustomersService = createUsersAndCustomersService;
     }
 
    @GetMapping(value = "/start")
-    public boolean startFillingDatabase() {
-        createBankService.createBank();
-        createUsersAndCustomersService.doDatabasePopulate();
-        return true;
+    public ResponseEntity<String> startDatabaseFill() {
+        generateBankService.createBank();
+        generateOtherCustomersService.generateCustomers();
+        return ResponseEntity.ok("Database fill completed");
     }
-
 }
 
     

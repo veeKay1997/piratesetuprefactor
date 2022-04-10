@@ -47,23 +47,7 @@ public class AccountDAO  {
         } return account;
     }
 
-    public void update(Account account) {
-        try {
-            String sql = "UPDATE account SET balance = ? where user_id = ?;";
-            jdbcTemplate.update(sql, account.getBalance(), account.getCustomer().getUserId());
-        } catch (DataAccessException dataAccessException) {
-            return;
-        }
-    }
-
-    // this method has no exception handling. Please use exception handling or check method when calling this method
-
-    public void delete(Integer id) {
-        String sql = "DELETE FROM account Where user_id = ?";
-        jdbcTemplate.update(sql, id);
-    }
-
-    public class AccountRowMapper implements RowMapper<Account> {
+    private class AccountRowMapper implements RowMapper<Account> {
         @Override
         public Account mapRow(ResultSet rs, int rowNum) throws SQLException {
            Customer customer = new Customer();

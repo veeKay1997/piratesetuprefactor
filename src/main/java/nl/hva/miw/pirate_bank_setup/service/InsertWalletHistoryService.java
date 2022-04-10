@@ -13,18 +13,18 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class GenerateWalletHistoryService {
+public class InsertWalletHistoryService {
+
     RootRepository repository;
 
     @Autowired
-    public GenerateWalletHistoryService(RootRepository repository) {
+    public InsertWalletHistoryService(RootRepository repository) {
         this.repository = repository;
     }
 
-    public void generateAndInsertWalletHistory(Customer customer) {
+    public void createCustomerWalletHistory(Customer customer) {
         repository.insertWalletHistory(generateWalletHistory(customer));
     }
-
 
 
     private WalletHistory generateWalletHistory(Customer customer) {
@@ -36,9 +36,5 @@ public class GenerateWalletHistoryService {
         WalletHistory walletHistory = new WalletHistory(customer, map);
         return walletHistory;
     }
-
-
-
-
 
 }

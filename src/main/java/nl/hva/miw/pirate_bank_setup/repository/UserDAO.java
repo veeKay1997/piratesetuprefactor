@@ -25,6 +25,10 @@ public class UserDAO  {
         jdbcTemplate.update(sql, user.getUserName(), user.getPassword());
     }
 
+    public void insertWithId(User user) {
+        String sql = "Insert into user(user_id,username, password) values (?,?,?)";
+        jdbcTemplate.update(sql, user.getUserId(), user.getUserName(), user.getPassword());
+    }
 
     public User get(Integer id) {
         User user;

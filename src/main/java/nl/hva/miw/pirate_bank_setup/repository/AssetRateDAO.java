@@ -5,6 +5,7 @@ import nl.hva.miw.pirate_bank_setup.domain.Asset;
 import nl.hva.miw.pirate_bank_setup.domain.AssetRate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,6 +30,14 @@ public class AssetRateDAO {
         return jdbcTemplate.queryForObject(sql, new assetRateRowmapper(),id);
     }
 
+    public void create(AssetRate assetRate) {
+        String sql = "Insert Into asset_rates(asset_name, timestamp, value) values(?, ?, ?);";
+        try {
+            jdbcTemplate.update(sql, assetRate.getAsset().getName(), assetRate.getTimestamp(), assetRate.getValue());
+        } catch (DataAccessException exception) {
+            log.debug(exception.getMessage());
+        }
+    }
 
    private class assetRateRowmapper implements RowMapper<AssetRate> {
         @Override

@@ -37,8 +37,15 @@ public class RootRepository {
         return userDAO.getByUsername(userName);
     }
 
-    public void doUserAndCustomerInsert(User user, Customer customer) {
+    public void doUserInsert(User user) {
         userDAO.create(user);
+    }
+
+    public void doUserInsertWithId(User user) {
+        userDAO.insertWithId(user);
+    }
+
+    public void doCustomerInsert(Customer customer) {
         customerDAO.create(customer);
     }
 

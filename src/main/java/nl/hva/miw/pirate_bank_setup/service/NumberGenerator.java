@@ -18,13 +18,11 @@ public class NumberGenerator {
         return randomNum;
     }
 
-    public static double randomInRange(double min, double max) {
+    public static double randomDoubleInRange(double min, double max) {
         Random random = new Random();
         double range = max - min;
         double scaled = random.nextDouble() * range;
         double shifted = scaled + min;
-        return shifted; // == (rand.nextDouble() * (max-min)) + min;
+        return shifted;
     }
-
-
 }
