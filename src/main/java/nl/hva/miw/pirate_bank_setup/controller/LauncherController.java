@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LauncherController {
 
-    Creator creator;
-
+    private final Creator creator;
 
     @Autowired
-    public LauncherController( Creator creator) {
+    public LauncherController(Creator creator) {
         this.creator = creator;
-
     }
 
    @GetMapping(value = "/start")

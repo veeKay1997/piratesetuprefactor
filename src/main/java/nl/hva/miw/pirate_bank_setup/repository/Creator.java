@@ -8,9 +8,10 @@ import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
 import nl.hva.miw.pirate_bank_setup.repository.customer.CustomerRepository;
 import nl.hva.miw.pirate_bank_setup.repository.crypto.WalletHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+
+@Component
 public class Creator {
     public static final int ALGORITHM_CYCLES = 3000;
     public static final int BANK_ID = 1000;
@@ -45,13 +46,13 @@ public class Creator {
         this.accountRepository = accountRepository;
     }
 
-    public boolean createCustomers(){
+    public boolean createCustomers (){
         try {
             for (int i = 0; i < ALGORITHM_CYCLES; i++) {
                 Customer customer = customerRepository.createRegularUserAndCustomer();
                 walletRepository.createCustomerWallet(customer, MIN_AMOUNT_CUSTOMER_WALLET, MAX_AMOUNT_CUSTOMER_WALLET);
                 accountRepository.createAccount(customer, RandomNumberGenerator.randomInt(MINIMUM_BALANCE, MAX_BALANCE));
-                walletRepository.createCustomerWallet(customer, WALLET_VALUE_LOWER_BOUND, WALLET_VALUE_UPPER_BOUND);
+                walletHistoryRepository.createCustomerWalletHistory(customer, WALLET_VALUE_LOWER_BOUND, WALLET_VALUE_UPPER_BOUND);
                 orderRepository.createRandomCustomerOrder(customer, MIN_PERCENTAGE_ABOVE_MARKET, MAX_PERCENTAGE_ABOVE_MARKET,
                         MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_BELOW_MARKET);
                 System.out.println("total customer generation cycles completed " + (i + 1));
