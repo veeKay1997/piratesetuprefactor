@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.repository.order;
+package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;

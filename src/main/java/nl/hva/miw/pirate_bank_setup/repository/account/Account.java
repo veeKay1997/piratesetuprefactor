@@ -3,7 +3,7 @@ package nl.hva.miw.pirate_bank_setup.repository.account;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import nl.hva.miw.pirate_bank_setup.repository.user.Customer;
+import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
 
 import java.math.BigDecimal;
 

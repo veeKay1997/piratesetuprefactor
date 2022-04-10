@@ -1,8 +1,6 @@
-package nl.hva.miw.pirate_bank_setup.repository.user;
+package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 import com.github.javafaker.Faker;
-import nl.hva.miw.pirate_bank_setup.service.utility.BcryptHashService;
-import nl.hva.miw.pirate_bank_setup.service.utility.RandomDataGenerator;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.springframework.stereotype.Repository;

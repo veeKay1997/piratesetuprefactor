@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.repository.wallet;
+package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;

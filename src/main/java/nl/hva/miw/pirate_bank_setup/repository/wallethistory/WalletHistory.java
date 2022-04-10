@@ -1,6 +1,6 @@
 package nl.hva.miw.pirate_bank_setup.repository.wallethistory;
 
-import nl.hva.miw.pirate_bank_setup.repository.user.Customer;
+import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

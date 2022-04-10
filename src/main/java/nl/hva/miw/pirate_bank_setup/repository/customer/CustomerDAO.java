@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.repository.user;
+package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;

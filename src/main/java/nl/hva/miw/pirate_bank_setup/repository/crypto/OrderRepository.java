@@ -1,9 +1,7 @@
-package nl.hva.miw.pirate_bank_setup.repository.order;
+package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
-import nl.hva.miw.pirate_bank_setup.repository.user.Customer;
-import nl.hva.miw.pirate_bank_setup.repository.wallet.Asset;
-import nl.hva.miw.pirate_bank_setup.repository.wallet.AssetDAO;
-import nl.hva.miw.pirate_bank_setup.service.utility.RandomDataGenerator;
+import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
+import nl.hva.miw.pirate_bank_setup.repository.customer.RandomDataGenerator;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;

@@ -1,6 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.repository.order;
-
-import nl.hva.miw.pirate_bank_setup.repository.wallet.Asset;
+package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

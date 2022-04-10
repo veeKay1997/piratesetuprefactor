@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.service.utility;
+package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 
 import org.springframework.security.crypto.password.PasswordEncoder;

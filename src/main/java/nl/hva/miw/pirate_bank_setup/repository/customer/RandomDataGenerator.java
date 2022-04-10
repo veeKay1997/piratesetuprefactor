@@ -1,4 +1,4 @@
-package nl.hva.miw.pirate_bank_setup.service.utility;
+package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 import com.github.javafaker.Faker;
 import com.github.rkumsher.date.RandomDateUtils;
