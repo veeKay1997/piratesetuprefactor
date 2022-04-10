@@ -1,6 +1,7 @@
 package nl.hva.miw.pirate_bank_setup.repository.customer;
 
 import com.github.javafaker.Faker;
+import nl.hva.miw.pirate_bank_setup.repository.crypto.RandomNumberGenerator;
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.springframework.stereotype.Repository;
@@ -50,7 +51,7 @@ public class CustomerRepository {
         Address address =  new Address(faker.address().streetName(), faker.address().streetAddressNumber(), ""
                 , spaceReplaced, faker.address().cityName());
         IdentifyingInformation identifyingInformation = new IdentifyingInformation(
-                RandomDataGenerator.generateFakeBSNNumber(), Iban.random(CountryCode.NL).toString(), RandomDataGenerator.randomBirthday());
+                RandomCustomerDataGenerator.generateFakeBSNNumber(), Iban.random(CountryCode.NL).toString(), RandomCustomerDataGenerator.randomBirthday());
         Customer customer = new Customer(personalDetails, address, identifyingInformation);
         customer.setUserName(user.getUserName());
         customer.setUserId(userDAO.getByUsername(customer.getUserName()).getUserId());
@@ -59,10 +60,9 @@ public class CustomerRepository {
 
     private User generateUser(PersonalDetails personalDetails) {
         String email = personalDetails.getFirstName().toLowerCase()+ "."+ personalDetails.getLastName().toLowerCase()+
-                RandomDataGenerator.randomInt(0,9) + RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator. randomInt(0,9)+
-                RandomDataGenerator.randomInt(0,9)+
-                RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator.randomInt(0,9) + RandomDataGenerator.randomInt(0,9)+
-                RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator.randomInt(0,9)+ RandomDataGenerator.randomInt(0,9)+ "@" + "piratebank.com";
+                RandomNumberGenerator.randomInt(0,9) + RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+
+                RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9) +
+                RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ RandomNumberGenerator.randomInt(0,9)+ "@" + "piratebank.com";
         return new User(email, bcrypt.hash("123456789"));
     }
 

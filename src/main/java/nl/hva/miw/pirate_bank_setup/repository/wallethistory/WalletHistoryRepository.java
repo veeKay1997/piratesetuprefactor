@@ -1,7 +1,7 @@
 package nl.hva.miw.pirate_bank_setup.repository.wallethistory;
 
+import nl.hva.miw.pirate_bank_setup.repository.crypto.RandomNumberGenerator;
 import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
-import nl.hva.miw.pirate_bank_setup.repository.customer.RandomDataGenerator;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -36,7 +36,7 @@ public class WalletHistoryRepository {
         Map<Timestamp, BigDecimal> map = new TreeMap<>();
         for (int i = 0; i < DAYS_IN_YEAR; i++) {
             Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now().minusDays(DAYS_IN_YEAR_OFFSET_BY_ONE).plusDays(i));
-            map.put(timestamp, new BigDecimal(RandomDataGenerator.randomInt(lowerBound, upperBound))
+            map.put(timestamp, new BigDecimal(RandomNumberGenerator.randomInt(lowerBound, upperBound))
                     .multiply(BigDecimal.valueOf(i)));
         }
         return new WalletHistory(customer, map);

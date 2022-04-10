@@ -1,7 +1,6 @@
 package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
-import nl.hva.miw.pirate_bank_setup.repository.customer.RandomDataGenerator;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -30,7 +29,7 @@ public class WalletRepository {
         Wallet wallet = new Wallet();
         Map<Asset, BigDecimal> map = new HashMap<>();
         for (Asset asset: crypto) {
-            map.put(asset, BigDecimal.valueOf(RandomDataGenerator.randomInt(minAmount,maxAmount)) );
+            map.put(asset, BigDecimal.valueOf(RandomNumberGenerator.randomInt(minAmount,maxAmount)) );
         }
         wallet.setAssetsInWallet(map);
         return wallet;

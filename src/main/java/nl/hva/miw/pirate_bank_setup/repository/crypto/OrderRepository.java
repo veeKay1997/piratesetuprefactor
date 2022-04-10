@@ -1,7 +1,6 @@
 package nl.hva.miw.pirate_bank_setup.repository.crypto;
 
 import nl.hva.miw.pirate_bank_setup.repository.customer.Customer;
-import nl.hva.miw.pirate_bank_setup.repository.customer.RandomDataGenerator;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -24,23 +23,23 @@ public class OrderRepository {
 
     public void createRandomCustomerOrder(Customer customer, double minPercentageSell, double maxPercentageSell,
     double minPercentageBuy, double maxPercentageBuy) {
-        Asset randomAsset = assetDAO.getAll().get(RandomDataGenerator.randomInt(0, 19));
+        Asset randomAsset = assetDAO.getAll().get(RandomNumberGenerator.randomInt(0, 19));
         boolean buy = false;
-        int buyOrSell = RandomDataGenerator.randomInt(0, 1);
+        int buyOrSell = RandomNumberGenerator.randomInt(0, 1);
         if (buyOrSell == 1) buy = true;
         if (!buy) {
             orderDAO.save(new Order(buy, customer, randomAsset, startAmountSell,
                     assetRateDAO.get(randomAsset.getName()).getValue().multiply(BigDecimal.valueOf
-                            (RandomDataGenerator.randomDoubleInRange(minPercentageSell, maxPercentageSell))).
+                            (RandomNumberGenerator.randomDoubleInRange(minPercentageSell, maxPercentageSell))).
                             round(new MathContext(4))));
-            startAmountSell = startAmountSell.add(BigDecimal.valueOf(RandomDataGenerator.randomInt(10, 20)));
+            startAmountSell = startAmountSell.add(BigDecimal.valueOf(RandomNumberGenerator.randomInt(10, 20)));
         }
         else {
             orderDAO.save(new Order(buy, customer, randomAsset, startAmountBuy,
                     assetRateDAO.get(randomAsset.getName()).getValue().multiply(BigDecimal.valueOf
-                            (RandomDataGenerator.randomDoubleInRange(minPercentageBuy, maxPercentageBuy))).
+                            (RandomNumberGenerator.randomDoubleInRange(minPercentageBuy, maxPercentageBuy))).
                             round(new MathContext(4))));
-            startAmountBuy = startAmountBuy.add(BigDecimal.valueOf(RandomDataGenerator.randomInt(10, 20)));
+            startAmountBuy = startAmountBuy.add(BigDecimal.valueOf(RandomNumberGenerator.randomInt(10, 20)));
         }
     }
 
