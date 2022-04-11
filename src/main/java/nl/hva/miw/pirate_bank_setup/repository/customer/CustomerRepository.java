@@ -11,9 +11,9 @@ import java.util.Locale;
 @Repository
 public class CustomerRepository {
 
-    private UserDAO userDAO;
-    private CustomerDAO customerDAO;
-    private BcryptHashService bcrypt;
+    private final UserDAO userDAO;
+    private final CustomerDAO customerDAO;
+    private final BcryptHashService bcrypt;
     private static final Faker faker = new Faker(new Locale("nl"));
 
 

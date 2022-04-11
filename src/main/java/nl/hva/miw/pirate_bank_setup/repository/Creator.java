@@ -10,6 +10,10 @@ import nl.hva.miw.pirate_bank_setup.repository.crypto.WalletHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
 
 @Component
 public class Creator {
@@ -53,12 +57,12 @@ public class Creator {
                 walletRepository.createCustomerWallet(customer, MIN_AMOUNT_CUSTOMER_WALLET, MAX_AMOUNT_CUSTOMER_WALLET);
                 accountRepository.createAccount(customer, RandomNumberGenerator.randomInt(MINIMUM_BALANCE, MAX_BALANCE));
                 walletHistoryRepository.createCustomerWalletHistory(customer, WALLET_VALUE_LOWER_BOUND, WALLET_VALUE_UPPER_BOUND);
-                orderRepository.createRandomCustomerOrder(customer, MIN_PERCENTAGE_ABOVE_MARKET, MAX_PERCENTAGE_ABOVE_MARKET,
-                        MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_BELOW_MARKET);
+                orderRepository.createRandomCustomerOrder(customer, MIN_PERCENTAGE_ABOVE_MARKET,
+                        MAX_PERCENTAGE_ABOVE_MARKET, MIN_PERCENTAGE_BELOW_MARKET, MAX_PERCENTAGE_BELOW_MARKET);
                 System.out.println("total customer generation cycles completed " + (i + 1));
             }
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            exception.printStackTrace();
             return false;
         }
         return true;
@@ -71,7 +75,7 @@ public class Creator {
             walletRepository.createCustomerWallet(customer, MIN_ASSET_NUMBER, MAX_ASSET_NUMBER);
             accountRepository.createAccount(customer, BANK_BALANCE);
         } catch (Exception exception) {
-            System.out.println(exception.getMessage());
+            exception.printStackTrace();
             return false;
         }
         System.out.println("The Pirate Bank was created");
